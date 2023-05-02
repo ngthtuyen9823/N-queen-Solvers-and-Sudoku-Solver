@@ -141,9 +141,6 @@ if __name__ == "__main__":
 
     sol = mainSolver(level)  # first at all the script solve the sudoku by itself
 
-    print("SolveBoard")
-    printBoard(sol)
-
     pygame.init()
     screen.fill(BLACK)
     drawInitBoard(Board)
