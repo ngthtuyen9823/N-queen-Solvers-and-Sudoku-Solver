@@ -1,4 +1,5 @@
 import n_queens_gui
+import random
 
 QUEEN = 1
 EMPTY_SPOT = 0
@@ -146,21 +147,44 @@ class NQueens:
         return res
     
     def solve(self):
-        """
-        Solves the N-Queens problem using a backtracking algorithm.
-        """
-        if self.is_winning_position():
-            return True
-        else:
+        result = []
+        try:
+            soln = self.min_conflicts(list(range(self._size)), self._size)
             for i in range(self._size):
-                for j in range(self._size):
-                    if self.is_legal_move((i, j)):
-                        self.place_queen((i, j))
-                        if self.solve():
-                            return True
-                        else:
-                            self.remove_queen((i, j))
-            return False
+                row = [EMPTY_SPOT] * self._size
+                for col in range(self._size):
+                    if soln[col] == self._size - 1 - i:
+                        row[col] = QUEEN
+                result.append(row)
+            self._board = result
+        except:
+            print("No solution found")
+        
+    def min_conflicts(self, soln, nr, iters=1000000):
+        def random_pos(li, filt):
+            return random.choice([i for i in range(nr) if filt(li[i])])
+
+        for k in range(iters):
+            confs = self.find_conflicts(soln, nr)
+            if sum(confs) == 0:
+                return soln
+            col = random_pos(confs, lambda elt: elt > 0)
+            vconfs = [self.hits(soln, nr, col, row) for row in range(nr)]
+            soln[col] = random_pos(vconfs, lambda elt: elt == min(vconfs))
+        raise Exception("Incomplete solution: try more iterations.")
+
+    def find_conflicts(self, soln, nr):
+        return [self.hits(soln, nr, col, soln[col]) for col in range(nr)]
+
+    def hits(self, soln, nr, col, row):
+        total = 0
+        for i in range(nr):
+            if i == col:
+                continue
+            if soln[i] == row or abs(i - col) == abs(soln[i] - row):
+                total += 1
+        return total
+
 
 
 n_queens_gui.run_gui(NQueens(BOARD_SIZE))
