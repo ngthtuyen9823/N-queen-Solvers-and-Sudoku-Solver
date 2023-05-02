@@ -1,6 +1,7 @@
 import copy
 from sudokuGenerator import *
-
+from minConflict import *
+import sudoku_problem
 # -------- Global board ----------------
 
 Board = [
@@ -18,25 +19,9 @@ Board = [
 solvedBoard = copy.deepcopy(Board)
 
 def solve(board):
-    # end condition:- getting to the end of the board - the function findEmpty return NONE
-    find = findEmpty(board)
-    if find is None:  # if find != False
-        return True
-    else:
-        row, col = find
-    for number in range(1, 10):
-        if validCheck(board, number, (row, col)):
-            board[row][col] = number
-            # TODO: need to show it on the GUI
-
-            if solve(board):
-                return True
-
-            board[row][col] = 0
-            # TODO: delete the number in the GUI
-    return False
-
-
+    prob = sudoku_problem.Sudoku(board)
+    board = min_conflict(prob)
+    print(board)
 def mainSolver(level):
     sudokuGenerate(Board, level)
     solvedBoard = copy.deepcopy(Board) # solved board luc nay la ma tran sau khi da them cac so 0 vao
