@@ -39,8 +39,7 @@ def solve(board):
 
 def mainSolver(level):
     sudokuGenerate(Board, level)
-    storeBoard = copy.deepcopy(Board)
-    solvedBoard = copy.deepcopy(Board)
-    solve(solvedBoard)
+    solvedBoard = copy.deepcopy(Board) # solved board luc nay la ma tran sau khi da them cac so 0 vao
+    solve(solvedBoard) #solved board luc nay la ma tran sau khi solve 
     return solvedBoard
    

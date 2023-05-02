@@ -17,8 +17,6 @@ size = (X, Y)
 window = pygame.display.set_mode(size)
 font = pygame.font.Font('freesansbold.ttf', 25)
 
-
-
 def drawButton(left, top, color, textInButton):
     rectSize = pygame.Rect(left, top, 60, 30)
     pygame.draw.rect(window, color, rectSize)  # left, top, width, height
@@ -54,7 +52,6 @@ def chooseLevel():
                 # quit the program.
                 quit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                # print("Click ", pos)
                 if (40 <= pos[0] <= 100) and (100 <= pos[1] <= 130):
                     level = 1
                 if (120 <= pos[0] <= 180) and (100 <= pos[1] <= 130):
@@ -62,12 +59,8 @@ def chooseLevel():
                 if (200 <= pos[0] <= 260) and (100 <= pos[1] <= 130):
                     level = 3
                 if level != 0:
-                    # print(level)
                     pygame.quit()
                     return level
 
-            # Draws the surface object to the screen.
             pygame.display.update()
 
-
-# chooseLevel()

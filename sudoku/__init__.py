@@ -13,6 +13,7 @@ GRAY =  (136, 119, 144)
 L_GRAY = (192, 164, 160)
 YELLOW = (221, 194, 151)
 
+
 # This sets the WIDTH and HEIGHT of each grid location
 WIDTH = HEIGHT = 50
 # This sets the margin between each cell
@@ -92,22 +93,21 @@ def drawTheBorder():
             pygame.draw.line(screen, BLACK, (i * dif, 0), (i * dif, 500), thick)
 
 
-def drawInitBoard():
-    # printBoard(solvedBoard)
-    for row in range(len(Board)):
-        for column in range(len(Board[row])):
+def drawInitBoard(Table):
+    for row in range(len(Table)):
+        for column in range(len(Table[row])):
             color = L_GRAY
-            if Board[row][column] == 0:  # if we want to change to background of the empty cells
+            if Table[row][column] == 0:  # if we want to change to background of the empty cells
                 color = WHITE
                 # ----- drawing the rect ------
             pygame.draw.rect(screen, color,
                              [(MARGIN + WIDTH) * column + MARGIN, (MARGIN + HEIGHT) * row + MARGIN, WIDTH, HEIGHT])
             # show nothing if the number is 0
             font = pygame.font.Font('freesansbold.ttf', 32)
-            if Board[row][column] == 0:
+            if Table[row][column] == 0:
                 text = font.render(" ", True, BLACK, )  # render(text, anti-alias[True], color, background=None)
             else:
-                text = font.render(str(Board[row][column]), True, BLACK, )
+                text = font.render(str(Table[row][column]), True, BLACK, )
 
             textRect = text.get_rect()  # get_rect() -> Returns a new rectangle covering the entire surface.
             textRect.center = (
@@ -144,10 +144,9 @@ if __name__ == "__main__":
     print("SolveBoard")
     printBoard(sol)
 
-    # ------ draw the board ------
     pygame.init()
     screen.fill(BLACK)
-    drawInitBoard()
+    drawInitBoard(Board)
     
     drawButton(70, 520, GRAY, "Refresh")
     drawButton(190, 520, GRAY, "Clear")      
@@ -159,7 +158,6 @@ if __name__ == "__main__":
     while not done:
         isOutSideTable = False
         # --- Main event loop
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 done = True
@@ -173,46 +171,30 @@ if __name__ == "__main__":
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()
                 if (70 <= pos[0] <= 190) and (520 <= pos[1] <= 570):
-                    print("1")
+                    sol = mainSolver(level)  # first at all the script solve the sudoku by itself
+                    drawInitBoard(Board)
                     isOutSideTable = True
                 if (190 <= pos[0] <= 310) and (520 <= pos[1] <= 570):
-                    print("2")
-                    sol = mainSolver(level)  # first at all the script solve the sudoku by itself
-                    print("SolveBoard")
-                    printBoard(sol)
-                    pygame.init()
-                    screen.fill(BLACK)
-                    drawInitBoard()
-                    drawButton(70, 520, GRAY, "Refresh")
-                    drawButton(190, 520, GRAY, "Clear")      
-                    drawButton(310, 520, GRAY, "Solve")
+                    drawInitBoard(Board)
                     isOutSideTable = True
-                    
                 if (310 <= pos[0] <= 430) and (520 <= pos[1] <= 570):
-                    print("3")
+                    drawInitBoard(sol);
                     isOutSideTable = True
-                    
-                
                 if isOutSideTable == False:
                     # ------ if clicked on a cell get his row and column ------
                     if readyForInput is True:
                         addNewRect(row, column, WHITE, None)
                         drawTheBorder()
                         readyForInput = False
-
                     pos = pygame.mouse.get_pos()
                     column = pos[0] // (WIDTH + MARGIN)
                     row = pos[1] // (WIDTH + MARGIN)
                     # ------ checking if it is a empty (0 inside) ------
                     if Board[row][column] == 0:
                         # ------ coloring the border of the clicked cell ----- #TODO YELLOW
-                    
                         addNewRect(row, column, YELLOW, 5)
                         readyForInput = True
                         # ------ now only wait for input from the user -----
-                    # print("Click ", pos)
-                
-                    
         if readyForInput and key is not None:
             # ------ checking if the key is good at it's place ------
             if int(key) == sol[row][column]:

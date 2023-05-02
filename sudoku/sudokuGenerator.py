@@ -1,19 +1,6 @@
 import random
 import copy
 
-# firstBoard = [
-#         [0, 0, 0, 0, 0, 0, 0, 0, 0],
-#         [0, 0, 0, 0, 0, 0, 0, 0, 0],
-#         [0, 0, 0, 0, 0, 0, 0, 0, 0],
-#         [0, 0, 0, 0, 0, 0, 0, 0, 0],
-#         [0, 0, 0, 0, 0, 0, 0, 0, 0],
-#         [0, 0, 0, 0, 0, 0, 0, 0, 0],
-#         [0, 0, 0, 0, 0, 0, 0, 0, 0],
-#         [0, 0, 0, 0, 0, 0, 0, 0, 0],
-#         [0, 0, 0, 0, 0, 0, 0, 0, 0]
-#     ]
-
-
 def printBoard(board):
     for i in range(len(board)):
         if i % 3 == 0 and i != 0:
@@ -67,8 +54,7 @@ def generateRandomBoard(board):
     else:
         row, col = find
     for number in range(1, 10):
-        randomNumber = random.randint(1, 9)  # TODO: need to work on the algorithm a bit more -
-        # TODO: to not rand the same number over and over again
+        randomNumber = random.randint(1, 9) 
         if validCheck(board, randomNumber, (row, col)):
             board[row][col] = randomNumber
             if generateRandomBoard(board):
@@ -88,10 +74,7 @@ def deleteCells(firstBoard,number):
 
 
 def sudokuGenerate(firstBoard, level):
-
-    # printBoard(firstBoard)
     generateRandomBoard(firstBoard)
-    # printBoard(firstBoard)
     if level == 1:
         deleteCells(firstBoard,30)
     if level == 2:
