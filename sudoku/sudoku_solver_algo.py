@@ -1,11 +1,11 @@
 import copy
 from sudoku import Sudoku
-from sudokuGenerator import *
+from sudoku_generator import *
 
 
 # -------- Global board ----------------
 
-Board = [
+board = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -17,7 +17,7 @@ Board = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0]
     ]
 
-solvedBoard = copy.deepcopy(Board)
+solved_board = copy.deepcopy(board)
 
 
 def solve(board):
@@ -30,17 +30,17 @@ def solve(board):
     initial_state = board
     sudoku = Sudoku(initial_state, size, sub_column_size, sub_row_size)
     print('Puzzle input:')
-    sudoku.printBoard()
+    sudoku.print_board()
     # Solve Sudoku with a min-conflicts algorithm
     success = sudoku.min_conflicts(var_rate, val_rate, max_steps)
     print('\nPuzzle solution:') if success == True else print('\nNo solution was found!!!\nEnd state:')
-    sudoku.printBoard()
+    sudoku.print_board()
     print()
     board = initial_state
     
-def mainSolver(level):
-    sudokuGenerate(Board, level)
-    solvedBoard = copy.deepcopy(Board) # solved board luc nay la ma tran sau khi da them cac so 0 vao
-    solve(solvedBoard) #solved board luc nay la ma tran sau khi solve 
-    return solvedBoard
+def main_solver(level):
+    sudoku_generate(board, level)
+    solved_board = copy.deepcopy(board) # solved board luc nay la ma tran sau khi da them cac so 0 vao
+    solve(solved_board) #solved board luc nay la ma tran sau khi solve 
+    return solved_board
    

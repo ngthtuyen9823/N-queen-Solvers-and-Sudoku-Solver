@@ -1,4 +1,3 @@
-# Import libraries
 import sys
 import copy
 import random
@@ -97,7 +96,6 @@ class Sudoku():
         return number_of_conflicts
     # Create an initial solution
     def create_initial_solution(self):
-
         # Generate an initial solution (probably with conflicts)
         for (y,x), numbers in self.domains.items():
             # A dictionary to store numbers and the number of conflicts for each number
@@ -120,7 +118,7 @@ class Sudoku():
             self.state[y][x] = random.choice(best_numbers)
         # Print initial solution
         print('\nInitial solution:')
-        self.printBoard()
+        self.print_board()
         print()
     # Min-conflicts algorithm
     def min_conflicts(self, var_rate:float=0.04, val_rate:float=0.02, max_steps:int=100000) -> bool:
@@ -179,7 +177,7 @@ class Sudoku():
         return False
     # Print the current state
 
-    def printBoard(self):
+    def print_board(self):
         for i in range(len(self.state)):
             if i % 3 == 0 and i != 0:
                 print("- - - - - - - - - - - -")

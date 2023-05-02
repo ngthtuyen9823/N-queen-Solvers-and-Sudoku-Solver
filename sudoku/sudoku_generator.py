@@ -1,7 +1,7 @@
 import random
 import copy
 
-def printBoard(board):
+def print_board(board):
     for i in range(len(board)):
         if i % 3 == 0 and i != 0:
             print("- - - - - - - - - - - -")
@@ -14,7 +14,7 @@ def printBoard(board):
                 print(str(board[i][j]) + " ", end="")
 
 
-def findEmpty(board):
+def find_empty(board):
     for y in range(len(board)):
         for x in range(len(board[0])):
             if board[y][x] == 0:
@@ -23,7 +23,7 @@ def findEmpty(board):
     return None
 
 
-def validCheck(board, number, coordinates):
+def valid_check(board, number, coordinates):
     # checking row
     for x in range(len(board[0])):
         if number == board[coordinates[0]][x] and coordinates[1] != x:  # coordinates[0]= row
@@ -46,38 +46,38 @@ def validCheck(board, number, coordinates):
     return True
 
 
-def generateRandomBoard(board):
-    # end condition:- getting to the end of the board - the function findEmpty return NONE
-    find = findEmpty(board)
+def generate_random_board(board):
+    # end condition:- getting to the end of the board - the function find_empty return NONE
+    find = find_empty(board)
     if find is None:  # if find != False
         return True
     else:
         row, col = find
     for number in range(1, 10):
-        randomNumber = random.randint(1, 9) 
-        if validCheck(board, randomNumber, (row, col)):
-            board[row][col] = randomNumber
-            if generateRandomBoard(board):
+        random_number = random.randint(1, 9) 
+        if valid_check(board, random_number, (row, col)):
+            board[row][col] = random_number
+            if generate_random_board(board):
                 return True
 
             board[row][col] = 0
     return False
 
 
-def deleteCells(firstBoard,number):
+def delete_cells(first_board,number):
     while number:
         row = random.randint(0, 8)
         col = random.randint(0, 8)
-        if firstBoard[row][col] != 0:
-            firstBoard[row][col] = 0
+        if first_board[row][col] != 0:
+            first_board[row][col] = 0
             number = number - 1
 
 
-def sudokuGenerate(firstBoard, level):
-    generateRandomBoard(firstBoard)
+def sudoku_generate(first_board, level):
+    generate_random_board(first_board)
     if level == 1:
-        deleteCells(firstBoard,30)
+        delete_cells(first_board,30)
     if level == 2:
-        deleteCells(firstBoard,40)
+        delete_cells(first_board,40)
     if level == 3:
-        deleteCells(firstBoard,50)
+        delete_cells(first_board,50)
