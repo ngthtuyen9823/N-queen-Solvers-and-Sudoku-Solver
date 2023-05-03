@@ -53,10 +53,13 @@ class NQueensGUI:
 
         self._frame.add_button("Decrease board size", self.decrease_board_size)
         self._frame.add_label("")  # For better spacing.
+        self._frame.add_button("Create initial state", self.create_init_state)
+        self._frame.add_label("") 
         self._frame.add_button("Reset", self.reset)
         self._frame.add_label("")  # For better spacing.
         self._frame.add_button("Solve", self.solve)
         self._frame.add_label("")
+        
         self._label = self._frame.add_label("")
 
     def increase_board_size(self):
@@ -69,7 +72,7 @@ class NQueensGUI:
         self._square_size = FRAME_SIZE[0] // self._size
         msg = "Current board size: " + str(self._size)
         self._size_label.set_text(msg)
-        self.reset()
+        self.create_init_state()
 
     def decrease_board_size(self):
         """
@@ -82,7 +85,7 @@ class NQueensGUI:
             self._square_size = FRAME_SIZE[0] // self._size
             msg = "Current board size: " + str(self._size)
             self._size_label.set_text(msg)
-            self.reset()
+            self.create_init_state()
 
     def start(self):
         """
@@ -96,6 +99,14 @@ class NQueensGUI:
         """
         self._game.reset_board()
         self._label.set_text("")
+
+    def create_init_state(self):
+        """
+        Create initial state for search.
+        """
+        self._game.reset_board()
+        self._game.create_initial_solution()
+        self._label.set_text("Initial state created!")
 
     def draw(self, canvas):
         """
