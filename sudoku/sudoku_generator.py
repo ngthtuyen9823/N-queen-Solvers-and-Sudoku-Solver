@@ -1,18 +1,6 @@
 import random
 import copy
 
-def print_board(board):
-    for i in range(len(board)):
-        if i % 3 == 0 and i != 0:
-            print("- - - - - - - - - - - -")
-        for j in range(len(board[0])):
-            if j % 3 == 0 and j != 0:
-                print(" | ", end="")
-            if j == 8:  # end of the row
-                print(board[i][j])
-            else:
-                print(str(board[i][j]) + " ", end="")
-
 
 def find_empty(board):
     for y in range(len(board)):
