@@ -1,4 +1,4 @@
-from sudoku_solver_algo import *
+from sudoku_solver import *
 from choose_level import *
 import time
 

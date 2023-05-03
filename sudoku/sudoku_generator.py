@@ -64,8 +64,8 @@ def delete_cells(first_board, number):
 def sudoku_generate(first_board, level):
     generate_random_board(first_board)
     if level == 1:
-        delete_cells(first_board,30)
+        delete_cells(first_board, 30)
     if level == 2:
-        delete_cells(first_board,40)
+        delete_cells(first_board, 40)
     if level == 3:
-        delete_cells(first_board,50)
+        delete_cells(first_board, 50)
