@@ -15,6 +15,7 @@ class Sudoku():
         self.sub_column_size = sub_column_size
         self.sub_row_size = sub_row_size
         self.domains = {}
+        
         # Create domains for numbers by using Arc consistency
         # Arc consistency: include only consistent numbers in the domain for each cell
         self.update_domains()
@@ -120,6 +121,18 @@ class Sudoku():
         print('\nInitial solution:')
         self.print_board()
         print()
+    # Print the current state
+    def print_board(self):
+        for i in range(len(self.state)):
+            if i % 3 == 0 and i != 0:
+                print("- - - - - - - - - - - -")
+            for j in range(len(self.state[0])):
+                if j % 3 == 0 and j != 0:
+                    print(" | ", end="")
+                if j == 8:  # end of the row
+                    print(self.state[i][j])
+                else:
+                    print(str(self.state[i][j]) + " ", end="")
     # Min-conflicts algorithm
     def min_conflicts(self, var_rate:float=0.04, val_rate:float=0.02, max_steps:int=100000) -> bool:
         # Generate an initial solution (probably with conflicts)
@@ -175,17 +188,5 @@ class Sudoku():
             self.state[y][x] = random.choice(best_numbers)
         # No solution was found, return false
         return False
-    # Print the current state
 
-    def print_board(self):
-        for i in range(len(self.state)):
-            if i % 3 == 0 and i != 0:
-                print("- - - - - - - - - - - -")
-            for j in range(len(self.state[0])):
-                if j % 3 == 0 and j != 0:
-                    print(" | ", end="")
-                if j == 8:  # end of the row
-                    print(self.state[i][j])
-                else:
-                    print(str(self.state[i][j]) + " ", end="")
 
