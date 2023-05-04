@@ -1,5 +1,4 @@
 import random
-import copy
 
 # searches for an empty cell on a Sudoku board
 def find_empty(board):
@@ -51,7 +50,6 @@ def generate_random_board(board):
             board[row][col] = 0
     return False
 
-
 def delete_cells(first_board, number):
     while number:
         row = random.randint(0, 8)
@@ -59,7 +57,6 @@ def delete_cells(first_board, number):
         if first_board[row][col] != 0:
             first_board[row][col] = 0
             number = number - 1
-
 
 def sudoku_generate(first_board, level):
     generate_random_board(first_board)

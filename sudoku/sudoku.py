@@ -1,5 +1,4 @@
 import sys
-import copy
 import random
 from typing import List
 
@@ -8,7 +7,6 @@ class Sudoku():
 
     # Create a new Sudoku
     def __init__(self, state:List, size:int, sub_column_size:int, sub_row_size:int):
-
         # Set values for instance variables
         self.state = state
         self.size = size
@@ -21,18 +19,21 @@ class Sudoku():
     def update_domains(self):
         # Reset domains
         self.domains = {}
+        
         # Create an array with numbers
         numbers = []
         for y in range(self.size):
             for x in range(self.size):
                 # Check if a cell is empty
                 if (self.state[y][x] == 0):
+                    
                     # Loop all possible numbers
                     numbers = []
                     for number in range(1, self.size + 1):
                         # Check if the number is consistent
                         if(self.is_consistent(number, y, x) == True):
                             numbers.append(number)
+                    
                     # Add numbers to a domain
                     if(len(numbers) > 0):
                         self.domains[(y, x)] = numbers
@@ -44,6 +45,7 @@ class Sudoku():
             # Return false if the number exists in the row
             if (x != column and self.state[row][x] == number):
                 return False
+        
         # Check a column
         for y in range(self.size):
             # Return false if the number exists in the column
@@ -52,12 +54,14 @@ class Sudoku():
         # Calculate row start and column start
         row_start = (row//self.sub_row_size)*self.sub_row_size
         col_start = (column//self.sub_column_size)*self.sub_column_size;
+       
         # Check sub matrix
         for y in range(row_start, row_start+self.sub_row_size):
             for x in range(col_start, col_start+self.sub_column_size):
                 # Return false if the number exists in the submatrix
                 if (y != row and x != column and self.state[y][x]== number):
                     return False
+        
         # Return true if no conflicts has been found
         return True
     
@@ -65,25 +69,30 @@ class Sudoku():
     def number_of_conflicts(self, number:int, row:int, column:int) -> int:
         # Number of conflicts
         number_of_conflicts = 0
+        
         # Check a row
         for x in range(self.size):
             # Check if a conflict is found in a row
             if (x != column and self.state[row][x] == number):
                 number_of_conflicts += 1
+        
         # Check a column
         for y in range(self.size):
             # Check if a conflict is found in a column
             if (y != row and self.state[y][column] == number):
                 number_of_conflicts += 1
+        
         # Calculate row start and column start
         row_start = (row//self.sub_row_size)*self.sub_row_size
         col_start = (column//self.sub_column_size)*self.sub_column_size;
+        
         # Check sub matrix
         for y in range(row_start, row_start+self.sub_row_size):
             for x in range(col_start, col_start+self.sub_column_size):
                 # Check if a conflict is found in a submatrix
                 if (y != row and x != column and self.state[y][x]== number):
                     number_of_conflicts += 1
+        
         # Return the number of conflicts
         return number_of_conflicts
     
@@ -93,12 +102,14 @@ class Sudoku():
         for (y,x), numbers in self.domains.items():
             # A dictionary to store numbers and the number of conflicts for each number
             scores = {}
+            
             # Loop numbers
             for number in numbers:
                 # Add to conflicts dictionary
                 scores[number] = self.number_of_conflicts(number, y, x)
             # Sort scores on number of conflicts
             scores = {key: value for key, value in sorted(scores.items(), key=lambda item: item[1])}
+            
             # Get best numbers
             best_numbers = []
             min = sys.maxsize
@@ -131,11 +142,13 @@ class Sudoku():
     def min_conflicts(self, var_rate:float=0.04, val_rate:float=0.02, max_steps:int=100000) -> bool:
         # Generate an initial solution (probably with conflicts)
         self.create_initial_solution()
+        
         # Now repeatedly choose a random variable in conflict and change it
         for i in range(max_steps):
             # Variables
             conflicts = []
             conflict_count = 0
+            
             # Get all variables that are in conflict
             for (y,x), numbers in self.domains.items():
                 # Check if the number is consistent
@@ -148,6 +161,7 @@ class Sudoku():
                 elif (random.random() < var_rate):
                     # Add the cell
                     conflicts.append((y,x))
+            
             # Check if we have a valid solution
             if(conflict_count <= 0):
                 return True
@@ -155,6 +169,7 @@ class Sudoku():
             y, x = random.choice(conflicts)
             # Get numbers to chose from
             numbers = self.domains.get((y, x))
+            
             # Loop numbers
             scores = {}
             for number in numbers:
@@ -162,6 +177,7 @@ class Sudoku():
                 scores[number] = self.number_of_conflicts(number, y, x)
             # Sort scores on value
             scores = {key: value for key, value in sorted(scores.items(), key=lambda item: item[1])}
+            
             # Get best numbers
             best_numbers = []
             min = sys.maxsize
@@ -175,6 +191,7 @@ class Sudoku():
                     best_numbers.append(key)
             # Assign a number
             self.state[y][x] = random.choice(best_numbers)
+        
         # No solution was found, return false
         return False
 

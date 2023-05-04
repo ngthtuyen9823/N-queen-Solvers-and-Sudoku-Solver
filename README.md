@@ -2,6 +2,8 @@
 To finish the artificial intelligence course we make 2 projects which are N-queen Solvers and Sudoku Solver using Min-conflicts Algorithm 
 # How to start project
 -----------------------------
+using python >= 3.9
+-----------------------------
 With sudoku -> cd sudoku 
 then 
 ```
