@@ -19,7 +19,7 @@ font = pygame.font.Font('freesansbold.ttf', 25)
 
 def draw_button(left, top, color, textInButton):
     rect_size = pygame.Rect(left, top, 60, 30)
-    pygame.draw.rect(window, color, rect_size)  # left, top, width, height
+    pygame.draw.rect(window, color, rect_size)  
     pygame.draw.rect(window, BLACK, rect_size, 3)
     font_button = pygame.font.Font('freesansbold.ttf', 20)
     text_button = font_button.render(textInButton, True, BLACK, )

@@ -36,11 +36,11 @@ def solve(board):
     print('\nPuzzle solution:') if success == True else print('\nNo solution was found!!!\nEnd state:')
     sudoku.print_board()
     print()
-    board = initial_state
+    board = initial_state 
     
 def main_solver(level):
     sudoku_generate(board, level)
-    solved_board = copy.deepcopy(board) # solved board luc nay la ma tran sau khi da them cac so 0 vao
-    solve(solved_board) #solved board luc nay la ma tran sau khi solve 
+    solved_board = copy.deepcopy(board) 
+    solve(solved_board) 
     return solved_board
    

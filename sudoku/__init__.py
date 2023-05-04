@@ -1,4 +1,4 @@
-from sudoku_solver_algo import *
+from sudoku_solver import *
 from choose_level import *
 import time
 
@@ -35,8 +35,8 @@ def cheating_all_the_way():
         for column in range(len(board[row])):
             board[row][column] = solved_board[row][column]
             add_num_to_board(board[row][column], row, column, L_GREEN)
-            time.sleep(0.05)
-            pygame.display.flip()
+            time.sleep(0.05) # allow the user to see the change in the game board
+            pygame.display.flip() # updates the screen to reflect the changes made to the board
     finish()
 
 
@@ -100,7 +100,7 @@ def draw_init_board(table):
             color = L_GRAY
             if table[row][column] == 0:  # if we want to change to background of the empty cells
                 color = WHITE
-                # ----- drawing the rect ------
+                # drawing the rect 
             pygame.draw.rect(screen, color,
                              [(MARGIN + WIDTH) * column + MARGIN, (MARGIN + HEIGHT) * row + MARGIN, WIDTH, HEIGHT])
             # show nothing if the number is 0
@@ -128,7 +128,7 @@ def draw_button(left, top, color, textInButton):
     screen.blit(text_button, text_rect_button)
     
 
-# -------- Main Program Loop -----------
+# -- Main Program Loop -----
 if __name__ == "__main__":
     flag1 = True
     while flag1:
@@ -153,7 +153,7 @@ if __name__ == "__main__":
     key = None
     while not done:
         is_outside_table = False
-        # --- Main event loop
+        # Main event loop
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 done = True
@@ -177,7 +177,7 @@ if __name__ == "__main__":
                     draw_init_board(sol);
                     is_outside_table = True
                 if is_outside_table == False:
-                    # ------ if clicked on a cell get his row and column ------
+                    #  if clicked on a cell get his row and column 
                     if ready_for_input is True:
                         add_new_rect(row, column, WHITE, None)
                         draw_the_border()
@@ -185,14 +185,14 @@ if __name__ == "__main__":
                     pos = pygame.mouse.get_pos()
                     column = pos[0] // (WIDTH + MARGIN)
                     row = pos[1] // (WIDTH + MARGIN)
-                    # ------ checking if it is a empty (0 inside) ------
+                    #  checking if it is a empty (0 inside) 
                     if board[row][column] == 0:
-                        # ------ coloring the border of the clicked cell ----- #TODO YELLOW
+                        #  coloring the border of the clicked cell 
                         add_new_rect(row, column, YELLOW, 5)
                         ready_for_input = True
-                        # ------ now only wait for input from the user -----
+                        #  now only wait for input from the user 
         if ready_for_input and key is not None:
-            # ------ checking if the key is good at it's place ------
+            #  checking if the key is good at it's place 
             if int(key) == sol[row][column]:
                 board[row][column] = key
                 flickering(0.1, GREEN)  # flickering at a 0.2 seconds with the color green
@@ -200,7 +200,7 @@ if __name__ == "__main__":
             else:
                 flickering(0.1, RED)  # flickering at a 0.2 seconds with the color red
                 add_num_to_board(key, row, column, L_RED)
-            # -----------------------------------------------
+
             draw_the_border()
             ready_for_input = False
         key = None
