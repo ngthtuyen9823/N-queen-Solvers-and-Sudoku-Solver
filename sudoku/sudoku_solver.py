@@ -1,29 +1,18 @@
 import copy
 from sudoku import Sudoku
 from sudoku_generator import *
+from constant import *
 
 
 # -------- Global board ----------------
-
-board = [
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0]
-    ]
+board = [[0 for j in range(BOARD_SIZE)] for i in range(BOARD_SIZE)]
 
 solved_board = copy.deepcopy(board)
 
-
 def solve(board):
-    size = 9 # 9 columns and 9 rows
-    sub_column_size = 3 # 3 columns in each submatrix
-    sub_row_size = 3 # 3 rows in each submatrix
+    size = BOARD_SIZE 
+    sub_column_size = SUB_SIZE 
+    sub_row_size = SUB_SIZE 
     var_rate = 0.02
     val_rate = 0.03
     max_steps = 200000

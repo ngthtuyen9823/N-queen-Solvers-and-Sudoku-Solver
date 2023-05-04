@@ -1,19 +1,8 @@
 import pygame
-
-BLACK = (0, 0, 0)
-WHITE = (232, 221, 205)
-GREEN = (144, 154, 116)
-L_GREEN = (135, 174, 166)
-RED = (193, 134, 127)
-L_RED = (255, 204, 203)
-GRAY =  (136, 119, 144)
-L_GRAY = (192, 164, 160)
-YELLOW = (221, 194, 151)
+from constant import *
 
 pygame.init()
-X = 300
-Y = 200
-size = (X, Y)
+size = (CELL_X, CELL_Y)
 window = pygame.display.set_mode(size)
 font = pygame.font.Font('freesansbold.ttf', 25)
 
@@ -32,7 +21,7 @@ def choose_level():
     level = 0
     text = font.render('Choose game level', True, BLACK, WHITE)
     text_rect = text.get_rect()
-    text_rect.center = (X // 2, Y // 2 - 40)
+    text_rect.center = (CELL_X // 2, CELL_Y // 2 - 40)
     pygame.display.set_caption("Sudoku Puzzle")
 
     done = True
