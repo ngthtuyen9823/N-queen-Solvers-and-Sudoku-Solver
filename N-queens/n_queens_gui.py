@@ -1,8 +1,6 @@
 from constant import *
 from utils import *
 
-print(CURRENT_ASSETS_PATH + "queen.png")
-
 try:
     import simplegui
     collision_sound = simplegui._load_local_sound(get_local_assets_path("buzz3x.mp3"))
