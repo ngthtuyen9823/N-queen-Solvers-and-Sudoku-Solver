@@ -10,7 +10,7 @@ class NQueens:
         self.create_initial_solution()
 
     # Check if a queen is consistent (no conflicts)
-    def is_consistent(self, position:()) -> bool:
+    def is_consistent(self, position) -> bool:
         # Get the row and column for the queen
         row, column = position
         
