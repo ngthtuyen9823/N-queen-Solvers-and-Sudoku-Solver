@@ -1,10 +1,11 @@
 import sys
 import random
-from typing import List
-//////////////////////
 
 
 helllo
+hi
+sjlkdfj
+
 
 
 # This class represent a Sudoku
